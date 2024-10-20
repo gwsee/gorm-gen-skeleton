@@ -1,0 +1,70 @@
+HttpServer:
+  Port: ":8888"
+  Mode: "debug"
+
+Websocket:
+  WriteReadBufferSize: 2048
+  HeartbeatFailMaxTimes: 4
+  PingPeriod: 20
+  ReadDeadline: 100
+  WriteDeadline: 35
+  PingMsg: "ping"
+
+Database:
+  Mysql:
+    SlowThreshold: 5
+    LogLevel: 4
+    ConnMaxLifetime: 1
+    MaxIdleConn: 2
+    MaxOpenConn: 2
+    ConnMaxIdleTime: 12
+    Reade:
+      - "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&loc=Local&parseTime=True"
+    Write: "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&loc=Local&parseTime=True"
+  Mongo:
+    Enable: false
+    Uri:
+    MinPoolSize: 10
+    MaxPoolSize: 20
+
+Redis:
+  Disabled: false
+  Addr: "127.0.0.1:6379"
+  Pwd: ""
+  Db: 0
+  PoolSize: 20
+  MaxIdleConn: 30
+  MinIdleConn: 10
+  # 单位（秒）
+  MaxLifeTime: 60
+  # 单位（分）
+  MaxIdleTime: 30
+
+Crontab:
+  Enable: true
+
+MQ:
+  Enable: false
+  Servers:
+    - "127.0.0.1:9876"
+  Retries: 1
+  ProducerGroupName: "ProducerGroup"
+  ConsumerGroupName: "ConsumerGroup"
+
+Amqp:
+  Enable: false
+  Addr: "amqp://guest:guest@127.0.0.1:5672/"
+
+Elastic:
+  Enable: false
+  Urls:
+    - "http://127.0.0.1:9200"
+  User: "admin"
+  Secret: "admin"
+  Sniffer: true
+  Gzip: true
+  MaxIdle: 10
+  # 单位（秒）
+  Healthcheck: 5
+  # 单位（秒）
+  Timeout: 5
