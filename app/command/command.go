@@ -41,7 +41,7 @@ func newGenCommand() AppCommand.Interface {
 		FieldNullable:     false,
 		FieldCoverable:    false,
 		FieldSignable:     false,
-		FieldWithIndexTag: false,
+		FieldWithIndexTag: true, //这样才能添加对应的联合索引
 		FieldWithTypeTag:  true,
 	}
 	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete")
