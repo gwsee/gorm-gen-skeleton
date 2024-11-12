@@ -38,13 +38,13 @@ func newGenCommand() AppCommand.Interface {
 		OutFile:           "",
 		ModelPkgPath:      "gox",
 		Mode:              gen.WithDefaultQuery | gen.WithoutContext | gen.WithQueryInterface,
-		FieldNullable:     false,
+		FieldNullable:     true, //修改为true 为空的唯一索引就没问题
 		FieldCoverable:    false,
 		FieldSignable:     false,
 		FieldWithIndexTag: true, //这样才能添加对应的联合索引
 		FieldWithTypeTag:  true,
 	}
-	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete")
+	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete") //软删除需要引入的包
 	return AppCommand.NewGenCommand(
 		AppCommand.WithConfig(cfg),
 		AppCommand.WithDB(variable.DB),
@@ -55,11 +55,11 @@ func newGenCommand() AppCommand.Interface {
 		),
 		AppCommand.WithDataMap(
 			map[string]func(detailType gorm.ColumnType) (dataType string){
-				"tinyint": func(detailType gorm.ColumnType) (dataType string) {
-					if detailType.Name() == "is_del" {
+				"int": func(detailType gorm.ColumnType) (dataType string) {
+					if detailType.Name() == "deleted_at" {
 						return "soft_delete.DeletedAt"
 					}
-					return "int8"
+					return "int"
 				},
 				// "decimal": func(detailType gorm.ColumnType) (dataType string) { return "float32" },
 			},
