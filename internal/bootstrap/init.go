@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
-	AppEvent "gorm-gen-skeleton/internal/event"
 	"log"
+	AppEvent "gorm-gen-skeleton/internal/event"
 	"time"
 
 	"gorm-gen-skeleton/app/amqp"
@@ -18,17 +18,17 @@ import (
 	"gorm-gen-skeleton/internal/variable/consts"
 )
 
-func init() {
+func Init() {
 	var err error
 	if variable.Config, err = config.New(driver.New(), config.Options{
-		BasePath: variable.BasePath,
+		BasePath: *variable.BasePath,
 	}); err != nil {
 		log.Fatal(consts.ErrorInitConfig)
 	}
 	if variable.Log, err = logger.New(
 		logger.WithDebug(true),
 		logger.WithEncode("json"),
-		logger.WithFilename(variable.BasePath+"/storage/logs/system.log"),
+		logger.WithFilename(*variable.BasePath+"/storage/logs/system.log"),
 	); err != nil {
 		log.Fatal(consts.ErrorInitLogger)
 	}

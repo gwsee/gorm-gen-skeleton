@@ -1,11 +1,11 @@
 package bootstrap
 
 import (
-	"gorm-gen-skeleton/internal/elasticsearch"
-	"gorm-gen-skeleton/internal/variable"
 	"log"
 	"net/http"
 	"os"
+	"gorm-gen-skeleton/internal/elasticsearch"
+	"gorm-gen-skeleton/internal/variable"
 	"time"
 
 	"github.com/olivere/elastic/v7"

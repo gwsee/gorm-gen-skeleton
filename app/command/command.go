@@ -1,6 +1,7 @@
 package command
 
 import (
+	"flag"
 	AppCommand "gorm-gen-skeleton/internal/command"
 	"gorm-gen-skeleton/internal/variable"
 
@@ -8,6 +9,8 @@ import (
 	"gorm.io/gen"
 	"gorm.io/gorm"
 )
+
+var DaoPath = flag.String("d", "./dao/query", "dao文件生成的地址")
 
 type Command struct {
 	root *cobra.Command
@@ -23,6 +26,8 @@ func NewCommand(root *cobra.Command) *Command {
 
 func (c *Command) GlobalFlags() {
 	c.root.PersistentFlags().StringP("foo", "f", "", "foo flag.")
+	c.root.PersistentFlags().StringP("cfg", "c", "", "动态配置文件 没必要每个项目都生成对应的文件")
+	c.root.PersistentFlags().StringP("dao", "d", "", "动态dao/query生成的目录,dao model就在相同的目录下;此命令需要注册 不然就不生效")
 }
 
 func (c *Command) RegisterCmds() []AppCommand.Interface {
@@ -34,17 +39,18 @@ func (c *Command) RegisterCmds() []AppCommand.Interface {
 
 func newGenCommand() AppCommand.Interface {
 	cfg := gen.Config{
-		OutPath:           "./dao/query",
+		OutPath:           *DaoPath,
 		OutFile:           "",
-		ModelPkgPath:      "gox",
+		ModelPkgPath:      "",
 		Mode:              gen.WithDefaultQuery | gen.WithoutContext | gen.WithQueryInterface,
-		FieldNullable:     true, //修改为true 为空的唯一索引就没问题
+		FieldNullable:     true,
 		FieldCoverable:    false,
 		FieldSignable:     false,
-		FieldWithIndexTag: true, //这样才能添加对应的联合索引
+		FieldWithIndexTag: true,
 		FieldWithTypeTag:  true,
 	}
-	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete") //软删除需要引入的包
+
+	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete") //目前不是所有的表都加了这个 就暂时不自动加了
 	return AppCommand.NewGenCommand(
 		AppCommand.WithConfig(cfg),
 		AppCommand.WithDB(variable.DB),
@@ -55,7 +61,19 @@ func newGenCommand() AppCommand.Interface {
 		),
 		AppCommand.WithDataMap(
 			map[string]func(detailType gorm.ColumnType) (dataType string){
+				"tinyint": func(detailType gorm.ColumnType) (dataType string) {
+					if detailType.Name() == "is_del" {
+						return "soft_delete.DeletedAt"
+					}
+					return "int8"
+				},
 				"int": func(detailType gorm.ColumnType) (dataType string) {
+					if detailType.Name() == "deleted_at" {
+						return "soft_delete.DeletedAt"
+					}
+					return "int"
+				},
+				"bigint": func(detailType gorm.ColumnType) (dataType string) {
 					if detailType.Name() == "deleted_at" {
 						return "soft_delete.DeletedAt"
 					}

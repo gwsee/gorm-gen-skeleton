@@ -1,25 +1,20 @@
 package variable
 
 import (
-	"gorm-gen-skeleton/internal/elasticsearch"
-	"gorm-gen-skeleton/internal/event"
-	"gorm-gen-skeleton/internal/mongo"
-	"log"
-	"os"
-	"strings"
-
-	"gorm-gen-skeleton/internal/config"
-	"gorm-gen-skeleton/internal/crontab"
-	"gorm-gen-skeleton/internal/mq"
-	"gorm-gen-skeleton/internal/variable/consts"
-
+	"flag"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"gorm-gen-skeleton/internal/config"
+	"gorm-gen-skeleton/internal/crontab"
+	"gorm-gen-skeleton/internal/elasticsearch"
+	"gorm-gen-skeleton/internal/event"
+	"gorm-gen-skeleton/internal/mongo"
+	"gorm-gen-skeleton/internal/mq"
 )
 
 var (
-	BasePath string
+	BasePath = flag.String("c", "./", "config dir")
 	Log      *zap.Logger
 	Config   *config.Config
 	DB       *gorm.DB
@@ -34,14 +29,15 @@ var (
 	RocketMQ mq.Interface
 )
 
-func init() {
-	if curPath, err := os.Getwd(); err == nil {
-		if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-test") {
-			BasePath = strings.Replace(strings.Replace(curPath, `\test`, "", 1), `/test`, "", 1)
-		} else {
-			BasePath = curPath
-		}
-	} else {
-		log.Fatal(consts.ErrorsBasePath)
-	}
+func Init() {
+	// flag.Parse() //如果不添加这个 这里无法解析 basePath的情况
+	//if curPath, err := os.Getwd(); err == nil {
+	//	if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-test") {
+	//		BasePath = strings.Replace(strings.Replace(curPath, `\test`, "", 1), `/test`, "", 1)
+	//	} else {
+	//		BasePath = curPath
+	//	}
+	//} else {
+	//	log.Fatal(consts.ErrorsBasePath)
+	//}
 }

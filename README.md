@@ -4,7 +4,9 @@
 目前该骨架实现了大多数的组件，比如事件,中间件,日志,配置,参数验证,命令行,定时任务等功能，目前可以满足大多数开发需求，后续会持续维护更新功能。
 
 #### 单元测试
-
+```shell
+go run cmd/cli/main.go gen:model
+```
 ```shell
 go test -v -run=TestConfig ./test
 ```
@@ -416,10 +418,30 @@ func (d *DemoController) Index(ctx *gin.Context) {
 
   ```
   go run cmd/cli/main.go gen:model
+  
+  
+  go run cmd/cli/main.go -d="./dao/gp/query"  gen:model
+  
+   go run cmd/cli/main.go -c="./config/gp" -d="./dao/gp/query" gen:model
+  
+   go run cmd/cli/main.go -c="./config/gp" -d="./dao/gp/query" gen:model
+  
+   go run cmd/cli/main.go -c="./config/gp" -d="./dao/gp/query" gen:model
   ```
 
   > 关于代码生成命令行的配置，可参考`app/command/command.go`文件下的`newGenCommand() AppCommand.Interface`方法
-
+国培学习
+```shell
+go run cmd/cli/main.go -c="./config/gp" -d="./dao/gp/query" gen:model
+```
+国培学时
+```shell
+go run cmd/cli/main.go -c="./config/gp_period" -d="./dao/gp_period/query" gen:model
+```
+牙科订单
+```shell
+go run cmd/cli/main.go -c="./config/dental_order" -d="./dao/dental_order/query" gen:model
+```
 - 自定义定义命令
 
   在`app/command`目录中定义自己的命令，比如自定义一个输出`success ok`的命令

@@ -2,8 +2,8 @@ package test
 
 import (
 	"context"
-	_ "gorm-gen-skeleton/internal/bootstrap"
-	"gorm-gen-skeleton/internal/variable"
+	_ "gorm-gen-gorm-gen-skeleton/internal/bootstrap"
+	"gorm-gen-gorm-gen-skeleton/internal/variable"
 	"testing"
 )
 

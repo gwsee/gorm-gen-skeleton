@@ -2,10 +2,10 @@ package controller
 
 import (
 	"fmt"
+	"net/http"
 	"gorm-gen-skeleton/app/event/entity"
 	"gorm-gen-skeleton/app/request"
 	"gorm-gen-skeleton/internal/variable"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )

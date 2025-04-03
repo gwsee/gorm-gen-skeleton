@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	variable.Init()
 	port := variable.Config.GetString("HttpServer.Port")
 	mode := variable.Config.GetString("HttpServer.Mode")
 	http := server.New(

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"gorm-gen-skeleton/internal/logger"
+	"gorm-gen-gorm-gen-skeleton/internal/logger"
 	"testing"
 )
 

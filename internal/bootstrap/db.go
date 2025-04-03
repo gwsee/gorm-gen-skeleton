@@ -1,12 +1,12 @@
 package bootstrap
 
 import (
+	"gorm.io/gorm"
+	gormLog "gorm.io/gorm/logger"
 	"gorm-gen-skeleton/internal/database"
 	"gorm-gen-skeleton/internal/database/db_log"
 	"gorm-gen-skeleton/internal/database/driver"
 	"gorm-gen-skeleton/internal/variable"
-	"gorm.io/gorm"
-	gormLog "gorm.io/gorm/logger"
 	"time"
 )
 

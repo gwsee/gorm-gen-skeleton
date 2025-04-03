@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"gorm-gen-skeleton/internal/server"
-	"gorm-gen-skeleton/router"
+	"gorm-gen-gorm-gen-skeleton/internal/server"
+	"gorm-gen-gorm-gen-skeleton/router"
 
 	"github.com/gin-gonic/gin"
 )

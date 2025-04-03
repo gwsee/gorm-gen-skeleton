@@ -2,9 +2,9 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"gorm-gen-skeleton/app/request"
 	"gorm-gen-skeleton/internal/variable/consts"
-	"log"
 )
 
 var validator *request.Request

@@ -2,12 +2,13 @@ package command
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
-	"gorm-gen-skeleton/internal/utils"
-	"gorm.io/gen"
 	"gorm.io/gen/field"
-	"gorm.io/gorm"
+	"gorm-gen-skeleton/internal/utils"
 	"strings"
+
+	"github.com/spf13/cobra"
+	"gorm.io/gen"
+	"gorm.io/gorm"
 )
 
 type GormGenCommand struct {
@@ -40,12 +41,6 @@ func NewGenCommand(opts ...OptionInterface) Interface {
 	g.generator = gormGen
 	return g
 }
-
-func (g *GormGenCommand) gormTag(tag field.GormTag) field.GormTag {
-	tag.Append("softDelete", "flag")
-	return tag
-}
-
 func (g *GormGenCommand) jsonTag(columnName string) (tagContent string) {
 	if len(g.ignoreFileds) > 0 {
 		for _, v := range g.ignoreFileds {
@@ -56,18 +51,30 @@ func (g *GormGenCommand) jsonTag(columnName string) (tagContent string) {
 	}
 	return columnName
 }
-
-var columnNameReg string
-var gormTag func(tag field.GormTag) field.GormTag
-
+func (g *GormGenCommand) gormTag(tag field.GormTag) field.GormTag {
+	//tag.Set("")
+	//g.config.WithImportPkgPath("gorm.io/plugin/soft_delete")
+	return tag
+}
+func (g *GormGenCommand) gormTagOnlyCreateAndRead(tag field.GormTag) field.GormTag {
+	tag.Append("<-", "create")
+	return tag
+}
 func (g *GormGenCommand) genModel() {
 	g.genModelMethod()
 	if g.dataMap != nil {
 		g.generator.WithDataTypeMap(g.dataMap)
 	}
+	var createFields []string
+	createFields = append(createFields, "created_at", "created_by")
+
 	jsonField := gen.FieldJSONTagWithNS(g.jsonTag)
-	gormField := gen.FieldGORMTag("is_del", g.gormTag)
-	fieldOpts := []gen.ModelOpt{jsonField, gormField}
+	gormTag := gen.FieldGORMTag("deleted_at", g.gormTag)
+
+	fieldOpts := []gen.ModelOpt{jsonField, gormTag}
+	for _, v := range createFields {
+		fieldOpts = append(fieldOpts, gen.FieldGORMTag(v, g.gormTagOnlyCreateAndRead))
+	}
 	models := make([]any, len(g.tables))
 	if len(g.tables) > 0 {
 		for _, table := range g.tables {

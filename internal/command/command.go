@@ -27,7 +27,7 @@ func New() *Command {
 	root := &Command{
 		root: &cobra.Command{
 			Use:   "command",
-			Short: "gorm-gen-skeleton command line.",
+			Short: "skeleton command line.",
 			Long: `this command line is an encapsulation of the github.com/spf13/cobra library. 
 For the definition of flag, please refer to the official library documentation.`,
 			Run: func(cmd *cobra.Command, args []string) {

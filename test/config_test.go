@@ -1,9 +1,9 @@
 package test
 
 import (
-	"gorm-gen-skeleton/internal/config"
-	"gorm-gen-skeleton/internal/config/driver"
-	"gorm-gen-skeleton/internal/variable"
+	"gorm-gen-gorm-gen-skeleton/internal/config"
+	"gorm-gen-gorm-gen-skeleton/internal/config/driver"
+	"gorm-gen-gorm-gen-skeleton/internal/variable"
 	"testing"
 )
 
