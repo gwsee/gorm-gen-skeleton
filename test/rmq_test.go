@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	"gorm-gen-gorm-gen-skeleton/internal/mq"
+	"gorm-gen-skeleton/internal/mq"
 	"testing"
 
 	"github.com/streadway/amqp"

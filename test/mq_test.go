@@ -3,9 +3,9 @@ package test
 import (
 	"context"
 	"fmt"
-	_ "gorm-gen-gorm-gen-skeleton/internal/bootstrap"
-	"gorm-gen-gorm-gen-skeleton/internal/mq"
-	"gorm-gen-gorm-gen-skeleton/internal/variable"
+	_ "gorm-gen-skeleton/internal/bootstrap"
+	"gorm-gen-skeleton/internal/mq"
+	"gorm-gen-skeleton/internal/variable"
 	"testing"
 	"time"
 

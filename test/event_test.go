@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"gorm-gen-gorm-gen-skeleton/internal/event"
+	"gorm-gen-skeleton/internal/event"
 )
 
 type DemoEvent1 struct {

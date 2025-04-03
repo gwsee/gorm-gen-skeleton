@@ -11,6 +11,7 @@ require (
 	github.com/go-playground/validator/v10 v10.14.0
 	github.com/google/uuid v1.3.1
 	github.com/gorilla/websocket v1.5.0
+	github.com/h2non/filetype v1.1.3
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/redis/go-redis/v9 v9.1.0
@@ -25,6 +26,7 @@ require (
 	gorm.io/gen v0.3.23
 	gorm.io/gorm v1.25.4
 	gorm.io/plugin/dbresolver v1.4.7
+	gorm.io/plugin/soft_delete v1.2.1
 )
 
 require (
