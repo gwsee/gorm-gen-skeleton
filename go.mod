@@ -96,3 +96,5 @@ require (
 	gorm.io/datatypes v1.1.1-0.20230130040222-c43177d3cf8c // indirect
 	gorm.io/hints v1.1.0 // indirect
 )
+
+replace gorm.io/gen => github.com/gwsee/gen master

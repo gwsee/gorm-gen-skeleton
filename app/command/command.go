@@ -50,7 +50,7 @@ func newGenCommand() AppCommand.Interface {
 		FieldWithTypeTag:  true,
 	}
 
-	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete") //目前不是所有的表都加了这个 就暂时不自动加了
+	cfg.WithImportPkgPath("gorm.io/plugin/soft_delete") // 添加需要的import类型
 	return AppCommand.NewGenCommand(
 		AppCommand.WithConfig(cfg),
 		AppCommand.WithDB(variable.DB),
